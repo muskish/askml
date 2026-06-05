@@ -11,6 +11,7 @@ Ask any question about machine learning concepts and get cited, grounded answers
 ---
 
 ## 🏗️ Architecture
+
 User Question
 ↓
 ┌─────────────────────────────────┐
@@ -18,16 +19,19 @@ User Question
 │  BM25 Keyword + Vector Search   │
 │         (top 8 chunks)          │
 └─────────────────────────────────┘
+
 ↓
 ┌─────────────────────────────────┐
 │       Cohere Re-ranker          │
 │    Narrows to top 3 chunks      │
 └─────────────────────────────────┘
+
 ↓
 ┌─────────────────────────────────┐
 │     Groq LLaMA 3.1 8B           │
 │  Citation-enforced generation   │
 └─────────────────────────────────┘
+
 ↓
 Answer + Sources
 ---
