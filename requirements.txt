@@ -1,0 +1,11 @@
+langchain
+langchain-community
+chromadb
+sentence-transformers
+rank-bm25
+cohere
+groq
+streamlit
+wikipedia
+python-dotenv
+tiktoken
