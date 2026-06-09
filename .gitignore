@@ -1,4 +1,10 @@
+# .env
+# venv/
+# vectorstore/
+# __pycache__/data/
+
 .env
 venv/
 vectorstore/
+data/
 __pycache__/
