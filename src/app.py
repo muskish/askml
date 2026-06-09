@@ -41,7 +41,7 @@ h2, h3 {
 
 /* ── Caption ── */
 div[data-testid="stCaptionContainer"] p {
-    color: #8a7a72 !important;
+    color: #544a45 !important;
     font-size: 0.9rem !important;
     font-style: italic !important;
 }
@@ -144,7 +144,7 @@ div[data-testid="stCaptionContainer"] p {
 
 [data-testid="stChatInput"] textarea {
     background-color: transparent !important;
-    color: #1a2744 !important;
+    color: #f2f2f2 !important;
     font-family: 'DM Sans', sans-serif !important;
     font-size: 0.95rem !important;
 }
@@ -163,7 +163,7 @@ div[data-testid="stCaptionContainer"] p {
 }
 
 [data-testid="stStatus"] p {
-    color: #6b5c55 !important;
+    color: #f2f2f2 !important;
     font-size: 0.85rem !important;
 }
 
