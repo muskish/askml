@@ -1,17 +1,18 @@
 import streamlit as st
-from src.generate import answer_question
-
 import sys
 import os
+
+# Add project root to Python path so 'src' module can be found
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from src.generate import answer_question
+from startup import is_vectorstore_ready, build_knowledge_base
 
 st.set_page_config(
     page_title="AskML",
     page_icon="assets/logo.png",
     layout="centered"
 )
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from startup import is_vectorstore_ready, build_knowledge_base
 
 if not is_vectorstore_ready():
     with st.status("⏳ Setting up knowledge base for the first time...", expanded=True) as status:
