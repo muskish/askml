@@ -86,9 +86,10 @@ pip install -r requirements.txt
 
 ### 4. Set up API keys
 Create a `.env` file:
-
+```
 GROQ_API_KEY=your_groq_key_here
 COHERE_API_KEY=your_cohere_key_here
+```
 
 ### 5. Ingest documents
 ```bash
