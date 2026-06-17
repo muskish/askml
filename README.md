@@ -16,39 +16,22 @@ Ask any question about machine learning concepts and get cited, grounded answers
 
 ```
 User Question
-
 │
-
 ▼
-
 Hybrid Retrieval
-
 ├── BM25 Keyword Search
-
 └── Vector Similarity Search
-
 │
-
 │  top 8 chunks
-
 ▼
-
 Cohere Re-ranker
-
 │
-
 │  top 3 chunks
-
 ▼
-
 Groq LLaMA 3.1 8B
-
 └── Citation-enforced prompt
-
 │
-
 ▼
-
 Answer + Sources
 
 ```
@@ -123,29 +106,17 @@ $env:PYTHONPATH="."; streamlit run src/app.py   # PowerShell
 ## 📁 Project Structure
 
 askml/
-
 ├── data/              # Downloaded Wikipedia articles
-
 ├── vectorstore/       # ChromaDB persistent storage + BM25 cache
-
 ├── src/
-
 │   ├── ingest.py      # Document ingestion, chunking, embedding
-
 │   ├── retrieve.py    # Hybrid retrieval + Cohere re-ranking
-
 │   ├── generate.py    # Prompt building + LLM answer generation
-
 │   ├── scraper.py      # Live URL ingestion (trafilatura)
-
 │   └── app.py         # Streamlit chat UI
-
 ├── startup.py         # Builds knowledge base on first cloud launch
-
 ├── .env                # API keys (never committed)
-
 ├── requirements.txt
-
 └── README.md
 
 ---
