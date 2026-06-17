@@ -105,21 +105,16 @@ $env:PYTHONPATH="."; streamlit run src/app.py   # PowerShell
 
 ## 📁 Project Structure
 
-askml/
-├── data/              # Downloaded Wikipedia articles
-├── vectorstore/       # ChromaDB persistent storage + BM25 cache
-├── src/
-│   ├── ingest.py      # Document ingestion, chunking, embedding
-│   ├── retrieve.py    # Hybrid retrieval + Cohere re-ranking
-│   ├── generate.py    # Prompt building + LLM answer generation
-│   ├── scraper.py      # Live URL ingestion (trafilatura)
-│   └── app.py         # Streamlit chat UI
-├── startup.py         # Builds knowledge base on first cloud launch
-├── .env                # API keys (never committed)
-├── requirements.txt
-└── README.md
-
----
+| File | Purpose |
+|---|---|
+| `src/ingest.py` | Document ingestion, chunking, embedding |
+| `src/retrieve.py` | Hybrid retrieval + Cohere re-ranking |
+| `src/generate.py` | Prompt building + LLM answer generation |
+| `src/scraper.py` | Live URL ingestion (trafilatura) |
+| `src/app.py` | Streamlit chat UI |
+| `startup.py` | Builds knowledge base on first cloud launch |
+| `data/` | Downloaded Wikipedia articles |
+| `vectorstore/` | ChromaDB persistent storage + BM25 cache |
 
 ## 💡 Why Hybrid Retrieval?
 
