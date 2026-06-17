@@ -8,6 +8,8 @@ from langchain_chroma import Chroma
 from rank_bm25 import BM25Okapi
 import streamlit as st
 
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+
 VECTORSTORE_DIR = "vectorstore"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 BM25_CACHE = "vectorstore/bm25_index.pkl"
