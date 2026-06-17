@@ -3,7 +3,7 @@
 🔗 **[Live Demo](https://askml-assistant.streamlit.app)**
 
 A domain-specific question-answering system built over AI/ML Wikipedia articles.
-Ask any question about machine learning concepts and get cited, grounded answers.
+Ask any question about machine learning concepts and get cited, grounded answers — or paste any URL to expand the knowledge base on the fly.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![LangChain](https://img.shields.io/badge/LangChain-latest-green)
@@ -16,23 +16,41 @@ Ask any question about machine learning concepts and get cited, grounded answers
 
 ```
 User Question
-      │
-      ▼
- Hybrid Retrieval
- ├── BM25 Keyword Search
- └── Vector Similarity Search
-      │
-      │  top 8 chunks
-      ▼
- Cohere Re-ranker
-      │
-      │  top 3 chunks
-      ▼
- Groq LLaMA 3.1 8B
- └── Citation-enforced prompt
-      │
-      ▼
- Answer + Sources
+
+│
+
+▼
+
+Hybrid Retrieval
+
+├── BM25 Keyword Search
+
+└── Vector Similarity Search
+
+│
+
+│  top 8 chunks
+
+▼
+
+Cohere Re-ranker
+
+│
+
+│  top 3 chunks
+
+▼
+
+Groq LLaMA 3.1 8B
+
+└── Citation-enforced prompt
+
+│
+
+▼
+
+Answer + Sources
+
 ```
 ---
 
@@ -41,8 +59,9 @@ User Question
 - **Hybrid Retrieval** — combines BM25 keyword search with semantic vector search for better recall
 - **Re-ranking** — Cohere cross-encoder re-ranks retrieved chunks by relevance
 - **Citation Enforcement** — LLM is prompted to cite every claim; declines if evidence is missing
+- **Live URL Ingestion** — paste any webpage and it's scraped, chunked, and added to the knowledge base in real time
 - **20 AI/ML Articles** — covers transformers, backpropagation, CNNs, RAG, fine-tuning, and more
-- **Cyberpunk UI** — Streamlit chat interface with persistent history
+- **Editorial UI** — clean, warm Streamlit chat interface with persistent history
 
 ---
 
@@ -56,15 +75,17 @@ User Question
 | Keyword Search | BM25 (rank-bm25) |
 | Re-ranker | Cohere `rerank-english-v3.0` |
 | LLM | Groq LLaMA 3.1 8B Instant |
+| Web Scraping | trafilatura |
 | UI | Streamlit |
+| Hosting | Streamlit Community Cloud |
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started (Local Setup)
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/askml.git
+git clone https://github.com/muskish/askml.git
 cd askml
 ```
 
@@ -82,8 +103,10 @@ pip install -r requirements.txt
 
 ### 4. Set up API keys
 Create a `.env` file:
+
 GROQ_API_KEY=your_groq_key_here
 COHERE_API_KEY=your_cohere_key_here
+
 ### 5. Ingest documents
 ```bash
 python src/ingest.py
@@ -91,24 +114,40 @@ python src/ingest.py
 
 ### 6. Run the app
 ```bash
-$env:PYTHONPATH="."; streamlit run src/app.py   # Windows
-PYTHONPATH=. streamlit run src/app.py            # Mac/Linux
+PYTHONPATH=. streamlit run src/app.py   # Mac/Linux/Git Bash
+$env:PYTHONPATH="."; streamlit run src/app.py   # PowerShell
 ```
 
 ---
 
 ## 📁 Project Structure
+
 askml/
+
 ├── data/              # Downloaded Wikipedia articles
+
 ├── vectorstore/       # ChromaDB persistent storage + BM25 cache
+
 ├── src/
+
 │   ├── ingest.py      # Document ingestion, chunking, embedding
+
 │   ├── retrieve.py    # Hybrid retrieval + Cohere re-ranking
+
 │   ├── generate.py    # Prompt building + LLM answer generation
+
+│   ├── scraper.py      # Live URL ingestion (trafilatura)
+
 │   └── app.py         # Streamlit chat UI
-├── .env               # API keys (never committed)
+
+├── startup.py         # Builds knowledge base on first cloud launch
+
+├── .env                # API keys (never committed)
+
 ├── requirements.txt
+
 └── README.md
+
 ---
 
 ## 💡 Why Hybrid Retrieval?
@@ -124,8 +163,15 @@ Combining both gives significantly better recall:
 
 ---
 
+## ⚠️ Known Limitations
+
+- On Streamlit Cloud's free tier, the vectorstore is rebuilt from scratch whenever the server restarts (no persistent disk storage), causing a ~2 minute delay on first load after inactivity.
+- Production fix: migrate to a managed vector database (Pinecone/Weaviate) for true persistence.
+
+---
+
 ## 🔮 Roadmap
 
-- [ ] URL ingestion — paste any webpage into the knowledge base
 - [ ] Evaluation pipeline — golden Q&A dataset with faithfulness scoring
 - [ ] Observability — request tracing with Langfuse
+- [ ] PDF/PPT upload support
