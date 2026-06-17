@@ -1,11 +1,15 @@
 import os
 from groq import Groq
-from dotenv import load_dotenv
 from src.retrieve import retrieve_chunks, rerank_chunks
 
+import streamlit as st
+from dotenv import load_dotenv
 load_dotenv()
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+# Works both locally (.env) and on cloud (st.secrets)
+groq_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
+client = Groq(api_key=groq_key)
+
 MODEL = "llama-3.1-8b-instant"
 
 def build_prompt(query, chunks):

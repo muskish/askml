@@ -6,6 +6,7 @@ import pickle
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from rank_bm25 import BM25Okapi
+import streamlit as st
 
 VECTORSTORE_DIR = "vectorstore"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
@@ -83,7 +84,8 @@ def retrieve_chunks(query, k=5):
 
 def rerank_chunks(query, chunks, top_n=3):
     """Re-rank chunks using Cohere for better precision"""
-    co = cohere.Client(os.getenv("COHERE_API_KEY"))
+    cohere_key = os.getenv("COHERE_API_KEY") or st.secrets.get("COHERE_API_KEY")
+    co = cohere.Client(cohere_key)
 
     documents = [c["text"] for c in chunks]
 

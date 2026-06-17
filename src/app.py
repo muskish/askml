@@ -1,6 +1,27 @@
 import streamlit as st
 from src.generate import answer_question
 
+import sys
+import os
+
+st.set_page_config(
+    page_title="AskML",
+    page_icon="assets/logo.png",
+    layout="centered"
+)
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from startup import is_vectorstore_ready, build_knowledge_base
+
+if not is_vectorstore_ready():
+    with st.status("⏳ Setting up knowledge base for the first time...", expanded=True) as status:
+        st.write("📥 Downloading AI/ML articles from Wikipedia...")
+        st.write("✂️  Chunking and embedding documents...")
+        st.write("🔍 Building search indexes...")
+        build_knowledge_base()
+        status.update(label="✅ Knowledge base ready!", state="complete")
+    st.rerun()
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
