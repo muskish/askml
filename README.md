@@ -1,5 +1,7 @@
 # 🤖 AskML — Production-Grade RAG Chatbot
 
+🔗 **[Live Demo](https://askml-assistant.streamlit.app)**
+
 A domain-specific question-answering system built over AI/ML Wikipedia articles.
 Ask any question about machine learning concepts and get cited, grounded answers.
 
